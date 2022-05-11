@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\Mile.Project.ModernWindows\Mile.Project.Platform.x86.props" />
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C11F288B-9E3C-4DA9-8206-852BB91C7E4C}</ProjectGuid>
     <RootNamespace>NanaZipSfxWindows</RootNamespace>
     <MileProjectType>WindowsApplication</MileProjectType>
+    <MileProjectManifestFile>NanaZipSfxWindows.manifest</MileProjectManifestFile>
+    <WindowsTargetPlatformMinVersion>6.0.6000.0</WindowsTargetPlatformMinVersion>
+    <MileProjectEnableVCLTLSupport>true</MileProjectEnableVCLTLSupport>
   </PropertyGroup>
-  <Import Project="..\Mile.Cpp\Mile.Project\Mile.Project.props" />
-  <Import Project="..\Mile.Cpp\Mile.Project\Mile.Project.Runtime.VC-LTL.props" />
-  <Import Project="..\Mile.Cpp\Mile.Library\Mile.Library.props" />
+  <Import Project="..\Mile.Project.ModernWindows\Mile.Project.Cpp.props" />
   <Import Project="..\NanaZip.Shared\NanaZip.Shared.SevenZipZStandard.props" />
+  <Import Project="..\NanaZip.Shared\NanaZip.Shared.ModernExperienceShims.props" />
   <PropertyGroup>
     <TargetName>NanaZipWindows</TargetName>
     <TargetExt>.sfx</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
+      <EnableEnhancedInstructionSet Condition="'$(Platform)'=='Win32'">NoExtensions</EnableEnhancedInstructionSet>
       <AdditionalOptions>%(AdditionalOptions) /Wv:18</AdditionalOptions>
-      <Optimization Condition="'$(Configuration)'=='Release'">MinSpace</Optimization>
-      <CallingConvention Condition="('$(Platform)'!='ARM') And ('$(Platform)'!='ARM64')">FastCall</CallingConvention>
-      <RuntimeTypeInfo>false</RuntimeTypeInfo>
-      <StringPooling>true</StringPooling>
-      <BufferSecurityCheck>false</BufferSecurityCheck>
-      <PreprocessorDefinitions>NO_REGISTRY;EXTRACT_ONLY;NO_READ_FROM_CODER;_SFX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NO_REGISTRY;EXTRACT_ONLY;NO_READ_FROM_CODER;_SFX;LANG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <LargeAddressAware>true</LargeAddressAware>
@@ -33,6 +32,8 @@
   <ItemGroup>
     <ClCompile Include="..\SevenZip\CPP\7zip\Compress\ZstdDecoder.cpp" />
     <ClCompile Include="..\SevenZip\CPP\7zip\Compress\ZstdRegister.cpp" />
+    <ClCompile Include="..\SevenZip\CPP\7zip\UI\FileManager\LangUtils.cpp" />
+    <ClCompile Include="..\SevenZip\CPP\Common\Lang.cpp" />
     <ClCompile Include="..\SevenZip\CPP\Windows\Clipboard.cpp" />
     <ClCompile Include="..\SevenZip\CPP\Windows\MemoryGlobal.cpp" />
     <ClCompile Include="..\SevenZip\C\7zCrc.c" />
@@ -149,6 +150,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\SevenZip\CPP\7zip\Compress\ZstdDecoder.h" />
+    <ClInclude Include="..\SevenZip\CPP\7zip\UI\FileManager\LangUtils.h" />
+    <ClInclude Include="..\SevenZip\CPP\Common\Lang.h" />
     <ClInclude Include="..\SevenZip\CPP\Windows\Clipboard.h" />
     <ClInclude Include="..\SevenZip\CPP\Windows\MemoryGlobal.h" />
     <ClInclude Include="..\SevenZip\C\7zCrc.h" />
@@ -235,12 +238,17 @@
     <ClInclude Include="..\SevenZip\CPP\7zip\UI\GUI\ExtractGUI.h" />
     <ClInclude Include="..\SevenZip\CPP\7zip\Bundles\SFXWin\StdAfx.h" />
     <ClInclude Include="Mile.Project.Properties.h" />
+    <ClInclude Include="NanaZipSfxWindowsResources.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\SevenZip\CPP\7zip\Bundles\SFXWin\7z.ico" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\SevenZip\CPP\7zip\Bundles\SFXWin\resource.rc" />
+    <ResourceCompile Include="NanaZipSfxWindowsResources.rc" />
   </ItemGroup>
-  <Import Project="..\Mile.Cpp\Mile.Project\Mile.Project.targets" />
+  <ItemGroup>
+    <Manifest Include="NanaZipSfxWindows.manifest" />
+  </ItemGroup>
+  <Import Project="..\Mile.Project.ModernWindows\Mile.Project.Cpp.targets" />
 </Project>

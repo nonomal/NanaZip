@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\Mile.Project.ModernWindows\Mile.Project.Platform.x86.props" />
+  <Import Project="..\Mile.Project.ModernWindows\Mile.Project.Platform.x64.props" />
+  <Import Project="..\Mile.Project.ModernWindows\Mile.Project.Platform.ARM64.props" />
   <PropertyGroup Label="Globals">
     <ProjectGuid>{97894839-6677-49D2-BA7C-39ED0C8D4FDB}</ProjectGuid>
     <RootNamespace>NanaZip</RootNamespace>
     <MileProjectType>WindowsApplication</MileProjectType>
     <MileProjectManifestFile>NanaZip.manifest</MileProjectManifestFile>
     <WindowsTargetPlatformMinVersion>10.0.10240.0</WindowsTargetPlatformMinVersion>
-    <CleanImport>true</CleanImport>
+    <MileProjectEnableVCLTLSupport>true</MileProjectEnableVCLTLSupport>
+    <MileProjectEnableCppWinRTSupport>true</MileProjectEnableCppWinRTSupport>
   </PropertyGroup>
-  <Import Project="..\Mile.Cpp\Mile.Project\Mile.Project.props" />
-  <Import Project="..\Mile.Cpp\Mile.Project\Mile.Project.Runtime.VC-LTL.props" />
-  <Import Project="..\Mile.Cpp\Mile.Library\Mile.Library.props" />
+  <Import Project="..\Mile.Project.ModernWindows\Mile.Project.Cpp.props" />
+  <Import Project="..\NanaZip.Shared\NanaZip.Shared.ModernExperienceShims.props" />
   <ItemDefinitionGroup>
     <ClCompile>
       <AdditionalOptions>%(AdditionalOptions) /Wv:18</AdditionalOptions>
-      <Optimization Condition="'$(Configuration)'=='Release'">MinSpace</Optimization>
-      <CallingConvention Condition="('$(Platform)'!='ARM') And ('$(Platform)'!='ARM64')">FastCall</CallingConvention>
-      <RuntimeTypeInfo>false</RuntimeTypeInfo>
-      <StringPooling>true</StringPooling>
-      <BufferSecurityCheck>false</BufferSecurityCheck>
       <PreprocessorDefinitions>EXTERNAL_CODECS;LANG;NEW_FOLDER_INTERFACE;WIN_LONG_PATH;SUPPORT_DEVICE_FILE;WANT_OPTIONAL_LOWERCASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -28,10 +26,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Image Include="..\SevenZip\CPP\7zip\UI\FileManager\7zipLogo.ico" />
-    <Image Include="..\SevenZip\CPP\7zip\UI\FileManager\FM.ico" />
-    <Image Include="..\SevenZip\CPP\7zip\UI\FileManager\Parent.bmp" />
-    <Image Include="..\SevenZip\CPP\7zip\UI\FileManager\Properties.bmp" />
     <Image Include="Assets\ParentFolder.bmp" />
     <Image Include="Assets\Toolbar\Add_24x24.bmp" />
     <Image Include="Assets\Toolbar\Add_32x32.bmp" />
@@ -137,7 +131,6 @@
     <ClCompile Include="..\SevenZip\CPP\7zip\UI\Explorer\ContextMenu.cpp" />
     <ClCompile Include="..\SevenZip\CPP\7zip\UI\GUI\HashGUI.cpp" />
     <ClCompile Include="..\SevenZip\CPP\7zip\UI\GUI\UpdateCallbackGUI2.cpp" />
-    <ClCompile Include="..\SevenZip\CPP\7zip\UI\FileManager\AboutDialog.cpp" />
     <ClCompile Include="..\SevenZip\CPP\7zip\UI\FileManager\AltStreamsFolder.cpp" />
     <ClCompile Include="..\SevenZip\CPP\7zip\UI\FileManager\App.cpp" />
     <ClCompile Include="..\SevenZip\CPP\7zip\UI\FileManager\BrowseDialog.cpp" />
@@ -156,7 +149,6 @@
     <ClCompile Include="..\SevenZip\CPP\7zip\UI\FileManager\FSDrives.cpp" />
     <ClCompile Include="..\SevenZip\CPP\7zip\UI\FileManager\FSFolder.cpp" />
     <ClCompile Include="..\SevenZip\CPP\7zip\UI\FileManager\FSFolderCopy.cpp" />
-    <ClCompile Include="..\SevenZip\CPP\7zip\UI\FileManager\LangPage.cpp" />
     <ClCompile Include="..\SevenZip\CPP\7zip\UI\FileManager\LangUtils.cpp" />
     <ClCompile Include="..\SevenZip\CPP\7zip\UI\FileManager\LinkDialog.cpp" />
     <ClCompile Include="..\SevenZip\CPP\7zip\UI\FileManager\ListViewDialog.cpp" />
@@ -199,6 +191,7 @@
     <ClCompile Include="..\SevenZip\CPP\7zip\UI\FileManager\UpdateCallback100.cpp" />
     <ClCompile Include="..\SevenZip\CPP\7zip\UI\FileManager\VerCtrl.cpp" />
     <ClCompile Include="..\SevenZip\CPP\7zip\UI\FileManager\ViewSettings.cpp" />
+    <ClCompile Include="AboutDialog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\SevenZip\CPP\7zip\Archive\Common\ItemNameUtils.h" />
@@ -323,7 +316,6 @@
     <ClInclude Include="..\SevenZip\CPP\7zip\UI\Explorer\ContextMenuFlags.h" />
     <ClInclude Include="..\SevenZip\CPP\7zip\UI\GUI\HashGUI.h" />
     <ClInclude Include="..\SevenZip\CPP\7zip\UI\GUI\UpdateCallbackGUI2.h" />
-    <ClInclude Include="..\SevenZip\CPP\7zip\UI\FileManager\AboutDialog.h" />
     <ClInclude Include="..\SevenZip\CPP\7zip\UI\FileManager\AltStreamsFolder.h" />
     <ClInclude Include="..\SevenZip\CPP\7zip\UI\FileManager\App.h" />
     <ClInclude Include="..\SevenZip\CPP\7zip\UI\FileManager\AppState.h" />
@@ -342,7 +334,6 @@
     <ClInclude Include="..\SevenZip\CPP\7zip\UI\FileManager\FSDrives.h" />
     <ClInclude Include="..\SevenZip\CPP\7zip\UI\FileManager\FSFolder.h" />
     <ClInclude Include="..\SevenZip\CPP\7zip\UI\FileManager\IFolder.h" />
-    <ClInclude Include="..\SevenZip\CPP\7zip\UI\FileManager\LangPage.h" />
     <ClInclude Include="..\SevenZip\CPP\7zip\UI\FileManager\LangUtils.h" />
     <ClInclude Include="..\SevenZip\CPP\7zip\UI\FileManager\LinkDialog.h" />
     <ClInclude Include="..\SevenZip\CPP\7zip\UI\FileManager\ListViewDialog.h" />
@@ -375,6 +366,7 @@
     <ClInclude Include="..\SevenZip\CPP\7zip\UI\FileManager\TextPairs.h" />
     <ClInclude Include="..\SevenZip\CPP\7zip\UI\FileManager\UpdateCallback100.h" />
     <ClInclude Include="..\SevenZip\CPP\7zip\UI\FileManager\ViewSettings.h" />
+    <ClInclude Include="AboutDialog.h" />
     <ClInclude Include="Mile.Project.Properties.h" />
   </ItemGroup>
   <ItemGroup>
@@ -383,5 +375,5 @@
   <ItemGroup>
     <Manifest Include="NanaZip.manifest" />
   </ItemGroup>
-  <Import Project="..\Mile.Cpp\Mile.Project\Mile.Project.targets" />
+  <Import Project="..\Mile.Project.ModernWindows\Mile.Project.Cpp.targets" />
 </Project>

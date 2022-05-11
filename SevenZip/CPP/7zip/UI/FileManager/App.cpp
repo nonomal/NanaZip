@@ -165,10 +165,9 @@ static void CreateToolbar(HWND parent,
   // backward compatibility.
   toolBar.ButtonStructSize();
 
-  const int DefaultDpi = 96;
-  int ControlDpi = ::GetDeviceCaps(::GetDC(toolBar), LOGPIXELSX);
-  int LargeSize = ::MulDiv(32, ControlDpi, DefaultDpi);
-  int NormalSize = ::MulDiv(24, ControlDpi, DefaultDpi);
+  int ControlDpi = ::GetDpiForWindow(toolBar);
+  int LargeSize = ::MulDiv(32, ControlDpi, USER_DEFAULT_SCREEN_DPI);
+  int NormalSize = ::MulDiv(24, ControlDpi, USER_DEFAULT_SCREEN_DPI);
 
   imageList.Create(
       (largeButtons ? LargeSize : NormalSize),
@@ -243,10 +242,9 @@ static void AddButton(
 
   but.iBitmap = imageList.GetImageCount();
 
-  const int DefaultDpi = 96;
-  int ControlDpi = ::GetDeviceCaps(::GetDC(toolBar), LOGPIXELSX);
-  int LargeSize = ::MulDiv(32, ControlDpi, DefaultDpi);
-  int NormalSize = ::MulDiv(24, ControlDpi, DefaultDpi);
+  int ControlDpi = ::GetDpiForWindow(toolBar);
+  int LargeSize = ::MulDiv(32, ControlDpi, USER_DEFAULT_SCREEN_DPI);
+  int NormalSize = ::MulDiv(24, ControlDpi, USER_DEFAULT_SCREEN_DPI);
 
   HBITMAP b = static_cast<HBITMAP>(::LoadImageW(
       g_hInstance,

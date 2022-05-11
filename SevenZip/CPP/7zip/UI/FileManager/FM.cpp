@@ -1,4 +1,4 @@
-// FM.cpp
+﻿// FM.cpp
 
 #include "StdAfx.h"
 
@@ -1020,6 +1020,24 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
       return 0 ;
     }
     */
+
+    case WM_DPICHANGED:
+    {
+        g_App.ReloadToolbars();
+
+        auto lprcNewScale = reinterpret_cast<RECT*>(lParam);
+
+        ::SetWindowPos(
+            hWnd,
+            nullptr,
+            lprcNewScale->left,
+            lprcNewScale->top,
+            lprcNewScale->right - lprcNewScale->left,
+            lprcNewScale->bottom - lprcNewScale->top,
+            SWP_NOZORDER | SWP_NOACTIVATE);
+
+        ::UpdateWindow(hWnd);
+    }
   }
   #ifndef _UNICODE
   if (g_IsNT)

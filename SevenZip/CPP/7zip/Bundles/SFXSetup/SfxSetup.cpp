@@ -1,4 +1,4 @@
-// Main.cpp
+﻿// Main.cpp
 
 #include "StdAfx.h"
 
@@ -49,7 +49,7 @@ static bool ReadDataString(CFSTR fileName, LPCSTR startID,
   Byte buffer[kBufferSize];
   const unsigned signatureStartSize = MyStringLen(startID);
   const unsigned signatureEndSize = MyStringLen(endID);
-  
+
   size_t numBytesPrev = 0;
   bool writeMode = false;
   UInt64 posTotal = 0;
@@ -127,6 +127,46 @@ static void ShowErrorMessageSpec(const UString &name)
   ShowErrorMessage(NULL, message);
 }
 
+#include <VersionHelpers.h>
+
+INT EnablePerMonitorDialogScaling()
+{
+    // This hack is only for Windows 10 only.
+    if (!::IsWindowsVersionOrGreater(10, 0, 0))
+    {
+        return -1;
+    }
+
+    // We don't need this hack if the Per Monitor Aware V2 is existed.
+    OSVERSIONINFOEXW OSVersionInfoEx = { 0 };
+    OSVersionInfoEx.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEXW);
+    OSVersionInfoEx.dwBuildNumber = 14393;
+    if (::VerifyVersionInfoW(
+        &OSVersionInfoEx,
+        VER_BUILDNUMBER,
+        ::VerSetConditionMask(0, VER_BUILDNUMBER, VER_GREATER_EQUAL)))
+    {
+        return -1;
+    }
+
+    HMODULE ModuleHandle = ::GetModuleHandleW(L"user32.dll");
+    if (!ModuleHandle)
+    {
+        return -1;
+    }
+
+    typedef INT(WINAPI* ProcType)();
+
+    ProcType ProcAddress = reinterpret_cast<ProcType>(
+        ::GetProcAddress(ModuleHandle, reinterpret_cast<LPCSTR>(2577)));
+    if (!ProcAddress)
+    {
+        return -1;
+    }
+
+    return ProcAddress();
+}
+
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE /* hPrevInstance */,
     #ifdef UNDER_CE
     LPWSTR
@@ -142,6 +182,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE /* hPrevInstance */,
   #ifdef _WIN32
   LoadSecurityDlls();
   #endif
+
+  ::EnablePerMonitorDialogScaling();
 
   // InitCommonControls();
 
@@ -198,7 +240,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE /* hPrevInstance */,
         return 0;
     }
     appLaunched = GetTextConfigValue(pairs, "RunProgram");
-    
+
     #ifdef _SHELL_EXECUTE
     executeFile = GetTextConfigValue(pairs, "ExecuteFile");
     executeParameters = GetTextConfigValue(pairs, "ExecuteParameters");
@@ -231,7 +273,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE /* hPrevInstance */,
     UString errorMessage;
     HRESULT result = ExtractArchive(codecs, fullPath, tempDirPath, showProgress,
       isCorrupt, errorMessage);
-    
+
     if (result != S_OK)
     {
       if (!assumeYes)
@@ -257,7 +299,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE /* hPrevInstance */,
   if (!SetCurrentDir(tempDirPath))
     return 1;
   #endif
-  
+
   HANDLE hProcess = 0;
 #ifdef _SHELL_EXECUTE
   if (!executeFile.IsEmpty())
@@ -312,13 +354,13 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE /* hPrevInstance */,
         return 1;
       }
     }
-    
+
     {
       FString s2 = tempDirPath;
       NName::NormalizeDirPathPrefix(s2);
       appLaunched.Replace(L"%%T" WSTRING_PATH_SEPARATOR, fs2us(s2));
     }
-    
+
     UString appNameForError = appLaunched; // actually we need to rtemove parameters also
 
     appLaunched.Replace(L"%%T", fs2us(tempDirPath));
@@ -336,11 +378,11 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE /* hPrevInstance */,
     startupInfo.dwFlags = 0;
     startupInfo.cbReserved2 = 0;
     startupInfo.lpReserved2 = 0;
-    
+
     PROCESS_INFORMATION processInformation;
-    
+
     CSysString appLaunchedSys (GetSystemString(dirPrefix + appLaunched));
-    
+
     BOOL createResult = CreateProcess(NULL, (LPTSTR)(LPCTSTR)appLaunchedSys,
       NULL, NULL, FALSE, 0, NULL, NULL /*tempDir.GetPath() */,
       &startupInfo, &processInformation);

@@ -1,4 +1,4 @@
-// Windows/Control/Dialog.h
+﻿// Windows/Control/Dialog.h
 
 #ifndef __WINDOWS_CONTROL_DIALOG_H
 #define __WINDOWS_CONTROL_DIALOG_H
@@ -174,7 +174,7 @@ public:
   }
 };
 
-bool IsDialogSizeOK(int xSize, int ySize);
+bool IsDialogSizeOK(int xSize, int ySize, HWND hwnd = NULL);
 
 }}
 

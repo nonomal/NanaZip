@@ -1,4 +1,4 @@
-// TarHandler.cpp
+﻿// TarHandler.cpp
 
 #include "StdAfx.h"
 
@@ -107,8 +107,7 @@ STDMETHODIMP CHandler::GetArchiveProperty(PROPID propID, PROPVARIANT *value)
 
     case kpidCharacts:
     {
-      AString s = _encodingCharacts.GetCharactsString();
-      prop = s;
+      prop = _encodingCharacts.GetCharactsString();
       break;
     }
   }

@@ -1,4 +1,4 @@
-// HashCon.cpp
+﻿// HashCon.cpp
 
 #include "StdAfx.h"
 
@@ -138,7 +138,7 @@ static unsigned GetColumnWidth(unsigned digestSize)
 
 AString CHashCallbackConsole::GetFields() const
 {
-  AString s = PrintFields;
+  AString s (PrintFields);
   if (s.IsEmpty())
     s = "hsn";
   s.MakeLower_Ascii();
@@ -313,7 +313,7 @@ HRESULT CHashCallbackConsole::SetOperationResult(UInt64 fileSize, const CHashBun
       s = kEmptyFileAlias;
     else
     {
-      UString temp = _fileName;
+      UString temp (_fileName);
       _so->Normalize_UString(temp);
       _so->Convert_UString_to_AString(temp, s);
     }

@@ -2,6 +2,66 @@
 
 For stable versions, please read [NanaZip Release Notes](ReleaseNotes.md).
 
+**NanaZip 1.2 Preview 4 (1.2.225.0)**
+
+- Continue to update ModernWin32MessageBox for solving the infinite loop issue
+  in some cases. (Thanks to AndromedaMelody.)
+- Fix crash issue when opening archive files. (Thanks to 1human and Maicol 
+  Battistini.)
+- Remove Language page in Options dialog because NanaZip will follow the 
+  language settings from Windows itself.
+
+**NanaZip 1.1 Servicing Update 1 Preview 3 (1.1.220.0)**
+
+- Modernize the i18n implementation via migrating language files from .txt to 
+  .resw. (Contributed by AndromedaMelody. Suggested by Maicol Battistini.)
+- Update ModernWin32MessageBox for solving the infinite loop issue in some 
+  cases. (Thanks to AndromedaMelody.)
+- Tweak icons and provide icons for preview versions. (Designed by Alice 
+  (四月天). Thanks to StarlightMelody.)
+
+**NanaZip 1.1 Servicing Update 1 Preview 2 (1.1.201.0)**
+
+- Fix no ordinal 345 was found in the dynamically attached library issue in 
+  Self Extracting Executables. (Thanks to FadeMind.)
+- Add Per-Monitor DPI-Aware support for all GUI components.
+- Adjust and simplify the compiler options for modernizing.
+- Fix i18n issue for the About dialog. (Thanks to AndromedaMelody.)
+- Update installation tutorial. (Suggested by AndromedaMelody.)
+- Fix cannot start editor issue when only store edition of notepad existed. 
+  (Thanks to AndromedaMelody.)
+
+**NanaZip 1.1 Servicing Update 1 Preview 1 (1.1.196.0)**
+
+- Simplify the file type association definitions and add the open verb for 
+  them. (Thanks to Fabio286. Fixed in NanaZip 1.1 Stable.)
+- Update VC-LTL to 5.0.4. (Updated in NanaZip 1.1 Stable.)
+
+**NanaZip 1.1 Preview 2 (1.1.153.0)**
+
+- Fix the issue which can't load context menu properly. (Thanks to DJxSpeedy.)
+
+**NanaZip 1.1 Preview 2 (1.1.152.0)**
+
+- Reimplement the about dialog with Task Dialog.
+- Update Deutsch translations. (Contributed by Hen Ry.)
+- Add assembly implementations from 7-Zip back for improving performance.
+- Update translations inherited from 7-Zip.
+- Update 7-Zip to 21.07. (Thanks to Igor Pavlov. Noticed by HylianSteel.)
+- Improve the multi volume rar file detection for solving 
+  https://github.com/M2Team/NanaZip/issues/82. (Thanks to 1human.)
+- Modernize the message boxes with Task Dialog.
+
+**NanaZip 1.1 Preview 1 (1.1.101.0)**
+
+- Exclude .webp in the archive file type list for solving 
+  https://github.com/M2Team/NanaZip/issues/57. (Thanks to Zbynius. Fixed in 
+  NanaZip 1.0 Stable.)
+- Update Polish translation. (Contributed by ChuckMichael.)
+- Fix CI issue.
+- Update VC-LTL to 5.0.3.
+- Update C++/WinRT to 2.0.211028.7.
+
 **NanaZip 1.0 Preview 4 (1.0.88.0)**
 
 - Update Italian, Russian and Polish Translations. (Contributed by Blueberryy, 

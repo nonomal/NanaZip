@@ -243,14 +243,12 @@ BEGIN
 
 END
 
-#include "AboutDialog.rc"
 #include "BrowseDialog.rc"
 #include "ComboDialog.rc"
 #include "CopyDialog.rc"
 #include "EditDialog.rc"
 #include "EditPage.rc"
 #include "FoldersPage.rc"
-#include "LangPage.rc"
 #include "LinkDialog.rc"
 #include "ListViewDialog.rc"
 #include "MenuPage.rc"

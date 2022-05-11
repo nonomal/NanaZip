@@ -1,4 +1,4 @@
-// PanelOperations.cpp
+﻿// PanelOperations.cpp
 
 #include "StdAfx.h"
 
@@ -511,7 +511,7 @@ void CPanel::ChangeComment()
   LangString(IDS_COMMENT2, dlg.Static);
   if (dlg.Create(GetParent()) != IDOK)
     return;
-  NCOM::CPropVariant propVariant = dlg.Value.Ptr();
+  NCOM::CPropVariant propVariant (dlg.Value);
 
   CDisableNotify disableNotify(*this);
   HRESULT result = _folderOperations->SetProperty(realIndex, kpidComment, &propVariant, NULL);
